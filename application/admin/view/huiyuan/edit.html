@@ -1,0 +1,67 @@
+{extend name="layout/edit"}
+{block name="title"}
+<title>管理员修改</title>
+{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form" method="post" id="form-user-edit" url="{:url('save')}" enctype="multipart/form-data">
+        <input type="hidden"  value="{$info.uid}" name="uid">
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>姓名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_place" value="{$info.name}" name="name" required="" lay-verify="name"
+                       autocomplete="off" disabled class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_mobile" value="{$info.mobile}" name="mobile" required="" lay-verify="mobile"
+                       autocomplete="off" disabled class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>身份证号码
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_idcard" value="{$info.idcard}" name="idcard" required="" lay-verify="idcard"
+                       autocomplete="off" disabled class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>条形码
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_qrcode" value="{$info.qrcode}" name="qrcode" required="" lay-verify="qrcode"
+                       autocomplete="off"  class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>检测模式</label>
+            <div class="layui-input-block">
+
+                <input type="radio" value="1" name="model" lay-skin="primary" title="混检" >
+<!--                <div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary"><span>有效</span><i-->
+<!--                        class="layui-icon"></i></div>-->
+                <input type="radio" value="0" name="model" lay-skin="primary" title="个检">
+<!--                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>无效</span><i class="layui-icon"></i>-->
+                <!--                </div>-->
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="btn-edit" class="layui-form-label">
+            </label>
+            <button id="btn-edit" class="layui-btn" lay-filter="edit" lay-submit="">
+                提交信息
+            </button>
+        </div>
+    </form>
+</div>
+{/block}

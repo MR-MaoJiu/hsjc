@@ -1,0 +1,48 @@
+{extend name="layout/create"}
+{block name="title"}
+<title>核酸检测信息提交</title>
+{/block}
+{block name="content"}
+<div class="x-body">
+    <form class="layui-form" method="post" id="form-user-add" url="{:url('save')}" enctype="multipart/form-data">
+        <div class="layui-form-mid layui-word-aux">
+            <span class="x-red">*</span>所填信息必须真实有效
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>姓名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_place" name="name" required="" lay-verify="name"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="number" id="L_mobile" name="mobile" required="" lay-verify="mobile"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_place" class="layui-form-label">
+                <span class="x-red">*</span>身份证号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_idcard" name="idcard" required="" lay-verify="idcard"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="btn-add" class="layui-form-label">
+            </label>
+            <button id="btn-add" class="layui-btn" lay-filter="add" lay-submit="">
+                提交信息
+            </button>
+
+        </div>
+    </form>
+</div>
+{/block}

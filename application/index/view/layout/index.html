@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {block name="title"}{/block}
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/admin1/css/font.css">
+    <link rel="stylesheet" href="/admin1/css/xadmin.css">
+    <script type="text/javascript" src="/admin1/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/admin1/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/admin1/js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        tr td {
+            text-align: center;
+        }
+
+        .ttt th {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        {block name="form"}
+        <form class="layui-form layui-col-md12 x-so" action="{:url('Roles/index')}" method="get">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <input type="text" name="rname" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <button class="layui-btn" lay-submit="" onclick="exportTable()">导出excel</button>
+        </form>
+        {/block}
+    </div>
+
+    {block name="content"}
+    <table class="layui-table" id="LAY-EXPORT-TEST">
+        <thead>
+        <tr class="ttt">
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
+                        class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>角色名称</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="line">
+            <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i
+                        class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.rname}</td>
+            <td class="td-status">
+                <span class="layui-btn layui-btn-normal layui-btn-mini">{if condition="$vo.status" eq 1}已启用{else}已禁用{/if}</span>
+            </td>
+            <td class="td-manage">
+                <a class="editstatus" link="{:url('Roles/upstatus')}" href="javascript:;" title="禁用">
+                    <i class="layui-icon">&#xe601;</i>
+                </a>
+                <a title="编辑" onclick="x_admin_show('修改角色','/admin/roles/edit/?id={$vo.id}',600,400)">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a class="del" title="删除" link="{:url('delete',['id'=>$vo.id])}">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {/block}
+    <div class="page">
+        {$list|raw}
+    </div>
+
+</div>
+<script type="text/javascript">
+    //导出excel
+    function exportTable() {
+        // 获取头部和body
+        var data = LAY_EXCEL.tableToJson(document.getElementById('LAY-EXPORT-TEST')) // 或者 $('#LAY-EXPORT-TEST')
+        if (empty(data)) {
+            return;
+        }
+        // console.log(data)
+        var exportData = []
+        exportData.push.apply(exportData, data.head)
+        exportData.push.apply(exportData, data.body)
+        // console.log(exportData)
+
+        LAY_EXCEL.exportExcel(exportData, '表格导出.xlsx', 'xlsx')
+    }
+
+</script>
+
+</body>
+
+</html>
